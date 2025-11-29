@@ -23,13 +23,35 @@ import {
   ArrowUp,
   Image,
   Link as LinkIcon,
-  MessageSquare
+  MessageSquare,
+  MoreHorizontal,
+  Trash2,
+  Edit2,
+  Copy,
+  Share2,
+  Download
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+  ContextMenuSeparator,
+  ContextMenuSub,
+  ContextMenuSubTrigger,
+  ContextMenuSubContent
+} from "@/components/ui/context-menu";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function Ide() {
@@ -90,17 +112,65 @@ export default function Ide() {
 
             <ScrollArea className="flex-1 px-3">
               <div className="space-y-6 py-2">
-                {/* Workspace Section */}
+                
+                {/* Workspace Tree (Recursive-like) */}
                 <div>
                   <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3 px-2">Workspace</h3>
-                  <div className="space-y-1">
-                    {["Research Q3", "Product Strategy", "Marketing Plan"].map((item) => (
-                      <Button key={item} variant="ghost" className="w-full justify-start gap-2 h-9 text-sm font-medium text-slate-600 hover:text-black hover:bg-slate-100 px-2 border border-transparent hover:border-slate-200 transition-all">
-                        <Folder size={16} />
-                        {item}
-                      </Button>
-                    ))}
-                  </div>
+                  <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
+                    <AccordionItem value="item-1" className="border-0">
+                      <AccordionTrigger className="py-2 px-2 hover:bg-slate-100 rounded-md hover:no-underline text-sm font-medium text-slate-700 [&[data-state=open]>svg]:rotate-90">
+                        <div className="flex items-center gap-2">
+                           <Folder size={16} className="text-slate-500" />
+                           <span>Research Q3</span>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="pl-4 pb-2 pt-1">
+                         <ContextMenu>
+                            <ContextMenuTrigger>
+                              <Button variant="ghost" className="w-full justify-start gap-2 h-8 text-sm font-normal text-slate-600 hover:text-black hover:bg-slate-100 px-2">
+                                <FileText size={14} />
+                                Launch Memo.md
+                              </Button>
+                            </ContextMenuTrigger>
+                            <ContextMenuContent className="w-48">
+                              <ContextMenuItem><Edit2 size={14} className="mr-2"/> Rename</ContextMenuItem>
+                              <ContextMenuItem><Copy size={14} className="mr-2"/> Duplicate</ContextMenuItem>
+                              <ContextMenuItem><Share2 size={14} className="mr-2"/> Share</ContextMenuItem>
+                              <ContextMenuSeparator />
+                              <ContextMenuItem className="text-red-600"><Trash2 size={14} className="mr-2"/> Delete</ContextMenuItem>
+                            </ContextMenuContent>
+                         </ContextMenu>
+
+                         <ContextMenu>
+                            <ContextMenuTrigger>
+                              <Button variant="ghost" className="w-full justify-start gap-2 h-8 text-sm font-normal text-slate-600 hover:text-black hover:bg-slate-100 px-2">
+                                <FileText size={14} />
+                                Competitor Analysis.pdf
+                              </Button>
+                            </ContextMenuTrigger>
+                            <ContextMenuContent className="w-48">
+                               <ContextMenuItem><Download size={14} className="mr-2"/> Download</ContextMenuItem>
+                               <ContextMenuItem><Share2 size={14} className="mr-2"/> Share</ContextMenuItem>
+                            </ContextMenuContent>
+                         </ContextMenu>
+                      </AccordionContent>
+                    </AccordionItem>
+
+                    <AccordionItem value="item-2" className="border-0">
+                       <AccordionTrigger className="py-2 px-2 hover:bg-slate-100 rounded-md hover:no-underline text-sm font-medium text-slate-700 [&[data-state=open]>svg]:rotate-90">
+                        <div className="flex items-center gap-2">
+                           <Folder size={16} className="text-slate-500" />
+                           <span>Product Strategy</span>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="pl-4 pb-2 pt-1">
+                         <Button variant="ghost" className="w-full justify-start gap-2 h-8 text-sm font-normal text-slate-600 hover:text-black hover:bg-slate-100 px-2">
+                            <FileText size={14} />
+                            Roadmap 2025.md
+                         </Button>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
                 </div>
 
                 {/* Integrations Tab */}
@@ -115,26 +185,11 @@ export default function Ide() {
                     Integrations
                   </Button>
                 </div>
-
-                {/* Recent */}
-                <div>
-                  <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3 px-2">Recent</h3>
-                  <div className="space-y-1">
-                    <Button variant="ghost" className="w-full justify-start gap-2 h-9 text-sm font-medium text-slate-600 hover:text-black hover:bg-slate-100 px-2 border border-transparent hover:border-slate-200">
-                      <FileText size={16} />
-                      User Interviews.pdf
-                    </Button>
-                    <Button variant="ghost" className="w-full justify-start gap-2 h-9 text-sm font-medium text-slate-600 hover:text-black hover:bg-slate-100 px-2 border border-transparent hover:border-slate-200">
-                      <FileText size={16} />
-                      Launch Memo.md
-                    </Button>
-                  </div>
-                </div>
               </div>
             </ScrollArea>
 
             <div className="p-3 border-t border-slate-100 bg-slate-50/50">
-              <div className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-white hover:shadow-sm border border-transparent hover:border-slate-200 cursor-pointer transition-all">
+              <div className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-white hover:shadow-sm border border-transparent hover:border-slate-200 cursor-pointer transition-all group">
                 <Avatar className="w-8 h-8 rounded-md border border-slate-200">
                   <AvatarImage src="https://github.com/shadcn.png" />
                   <AvatarFallback>SC</AvatarFallback>
@@ -143,7 +198,7 @@ export default function Ide() {
                   <div className="text-sm font-bold text-slate-900 truncate">Sarah Connor</div>
                   <div className="text-xs text-slate-500 truncate">Pro Plan</div>
                 </div>
-                <Settings size={16} className="text-slate-400" />
+                <Settings size={16} className="text-slate-400 group-hover:text-slate-600" />
               </div>
             </div>
           </motion.aside>
@@ -171,10 +226,14 @@ export default function Ide() {
             
             <div className="h-6 w-px bg-slate-200 mx-1 hidden md:block" />
             
+            {/* Breadcrumb */}
             <div className="flex items-center gap-2 text-sm text-slate-500 overflow-hidden">
                <span className="hidden md:inline hover:text-black cursor-pointer hover:underline underline-offset-4">Research Q3</span>
                <ChevronRight size={14} className="flex-shrink-0 text-slate-300 hidden md:block" />
-               <span className="font-semibold text-slate-900 truncate">Launch Memo</span>
+               <span className="font-semibold text-slate-900 truncate flex items-center gap-2">
+                 <FileText size={14} className="text-slate-400" />
+                 Launch Memo
+               </span>
             </div>
           </div>
 
@@ -202,9 +261,14 @@ export default function Ide() {
 
              <Separator orientation="vertical" className="h-6 bg-slate-200 mx-1 hidden md:block" />
 
-             <Button variant="ghost" size="icon" className={`text-slate-500 hover:text-black ${rightPanelOpen ? 'bg-slate-100' : ''}`} onClick={() => setRightPanelOpen(!rightPanelOpen)}>
-               {rightPanelOpen ? <PanelRightClose size={18} /> : <PanelRightOpen size={18} />}
-             </Button>
+             <div className="flex items-center gap-1">
+                <Button variant="ghost" size="icon" className="text-slate-500 hover:text-black">
+                   <Share2 size={18} />
+                </Button>
+                <Button variant="ghost" size="icon" className={`text-slate-500 hover:text-black ${rightPanelOpen ? 'bg-slate-100' : ''}`} onClick={() => setRightPanelOpen(!rightPanelOpen)}>
+                  {rightPanelOpen ? <PanelRightClose size={18} /> : <PanelRightOpen size={18} />}
+                </Button>
+             </div>
           </div>
         </header>
 
@@ -270,54 +334,66 @@ export default function Ide() {
               </div>
 
                <div className="max-w-3xl mx-auto py-8 md:py-16 px-6 md:px-12 min-h-full">
-                  <h1 className="text-3xl md:text-5xl font-bold text-slate-900 mb-8 font-display tracking-tight leading-tight">
-                    Q3 Product Launch Strategy
-                  </h1>
-                  
-                  <div className="prose prose-slate prose-lg max-w-none">
-                    <p className="lead text-xl text-slate-600">
-                      The primary objective of the Q3 launch is to penetrate the enterprise market with our new "Teams" feature set. 
-                    </p>
-                    
-                    {/* AI Suggestion Block - White/Black Outline Style */}
-                    <div className="my-8 p-0 rounded-xl border border-slate-900 bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] not-prose overflow-hidden">
-                      <div className="bg-slate-50 px-4 py-2 border-b border-slate-900 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-900">
-                        <Sparkles size={14} />
-                        AI Insight
-                      </div>
-                      <div className="p-5">
-                        <p className="text-sm text-slate-700 mb-4 font-medium leading-relaxed">
-                          I've analyzed 15 competitor launches from the last year. Enterprise adoption typically spikes 
-                          when security compliance (SOC2) is highlighted in the first fold.
+                  <ContextMenu>
+                    <ContextMenuTrigger>
+                      <div className="prose prose-slate prose-lg max-w-none">
+                        <h1 className="text-3xl md:text-5xl font-bold text-slate-900 mb-8 font-display tracking-tight leading-tight outline-none" contentEditable suppressContentEditableWarning>
+                          Q3 Product Launch Strategy
+                        </h1>
+                        
+                        <p className="lead text-xl text-slate-600 outline-none" contentEditable suppressContentEditableWarning>
+                          The primary objective of the Q3 launch is to penetrate the enterprise market with our new "Teams" feature set. 
                         </p>
-                        <div className="flex gap-3">
-                          <Button size="sm" className="h-8 bg-black text-white hover:bg-slate-800 rounded-md text-xs font-bold">
-                            Apply Suggestion
-                          </Button>
-                          <Button size="sm" variant="outline" className="h-8 border-slate-200 text-slate-600 hover:text-black rounded-md text-xs">
-                            Dismiss
-                          </Button>
+                        
+                        {/* AI Suggestion Block - White/Black Outline Style */}
+                        <div className="my-8 p-0 rounded-xl border border-slate-900 bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] not-prose overflow-hidden select-none">
+                          <div className="bg-slate-50 px-4 py-2 border-b border-slate-900 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-900">
+                            <Sparkles size={14} />
+                            AI Insight
+                          </div>
+                          <div className="p-5">
+                            <p className="text-sm text-slate-700 mb-4 font-medium leading-relaxed">
+                              I've analyzed 15 competitor launches from the last year. Enterprise adoption typically spikes 
+                              when security compliance (SOC2) is highlighted in the first fold.
+                            </p>
+                            <div className="flex gap-3">
+                              <Button size="sm" className="h-8 bg-black text-white hover:bg-slate-800 rounded-md text-xs font-bold">
+                                Apply Suggestion
+                              </Button>
+                              <Button size="sm" variant="outline" className="h-8 border-slate-200 text-slate-600 hover:text-black rounded-md text-xs">
+                                Dismiss
+                              </Button>
+                            </div>
+                          </div>
                         </div>
+
+                        <h2 contentEditable suppressContentEditableWarning className="outline-none">1. Market Analysis</h2>
+                        <p contentEditable suppressContentEditableWarning className="outline-none">
+                          Current market sentiment leans heavily towards consolidated tooling. Users are tired of switching between 
+                          Notion, Linear, and Slack. <span className="bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-sm font-medium text-slate-900 align-middle cursor-pointer hover:bg-slate-200">citation needed</span>
+                        </p>
+
+                        <ul className="marker:text-black">
+                          <li>Consolidation of toolchains into single-pane-of-glass interfaces.</li>
+                          <li>AI-native workflows replacing manual data entry.</li>
+                          <li>Real-time collaboration latency becoming a key decision factor.</li>
+                        </ul>
+
+                        <h2 contentEditable suppressContentEditableWarning className="outline-none">2. Key Differentiators</h2>
+                        <p contentEditable suppressContentEditableWarning className="outline-none">
+                          Unlike traditional IDEs, Antimomentum focuses on the "pre-code" phase: thinking, planning, and researching.
+                        </p>
                       </div>
-                    </div>
-
-                    <h2>1. Market Analysis</h2>
-                    <p>
-                      Current market sentiment leans heavily towards consolidated tooling. Users are tired of switching between 
-                      Notion, Linear, and Slack. <span className="bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-sm font-medium text-slate-900 align-middle cursor-pointer hover:bg-slate-200">citation needed</span>
-                    </p>
-
-                    <ul className="marker:text-black">
-                      <li>Consolidation of toolchains into single-pane-of-glass interfaces.</li>
-                      <li>AI-native workflows replacing manual data entry.</li>
-                      <li>Real-time collaboration latency becoming a key decision factor.</li>
-                    </ul>
-
-                    <h2>2. Key Differentiators</h2>
-                    <p>
-                      Unlike traditional IDEs, Antimomentum focuses on the "pre-code" phase: thinking, planning, and researching.
-                    </p>
-                  </div>
+                    </ContextMenuTrigger>
+                    <ContextMenuContent className="w-64">
+                      <ContextMenuItem><Sparkles size={14} className="mr-2 text-violet-600" /> Improve writing</ContextMenuItem>
+                      <ContextMenuItem><Zap size={14} className="mr-2" /> Make shorter</ContextMenuItem>
+                      <ContextMenuItem><MoreHorizontal size={14} className="mr-2" /> Make longer</ContextMenuItem>
+                      <ContextMenuSeparator />
+                      <ContextMenuItem>Copy as Markdown</ContextMenuItem>
+                      <ContextMenuItem>Export to PDF</ContextMenuItem>
+                    </ContextMenuContent>
+                  </ContextMenu>
                   
                   <div className="h-32" />
                </div>
