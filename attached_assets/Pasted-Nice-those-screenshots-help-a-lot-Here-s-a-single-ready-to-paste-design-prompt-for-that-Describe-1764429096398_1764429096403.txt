@@ -1,0 +1,94 @@
+Nice, those screenshots help a lot.
+Here’s a single, ready-to-paste design prompt for that “Describe” box – it will generate a Google-Antigravity-style landing page but themed for Antimomentum (research + office IDE with agentic AI).
+
+
+---
+
+👉 Prompt to paste:
+
+> Design a clean, futuristic marketing website for a product called Antimomentum – a next-generation Research & Office IDE powered by agentic AI. The style should feel similar in quality to Google Antigravity and other modern Google product pages: lots of white space, soft rounded shapes, subtle dotted/particle backgrounds, big friendly typography, and minimal but high-impact color accents.
+
+Overall vibe: light mode, calm but high-dopamine. Use a mostly white / very light background with soft shadows, thin dividers, and one main accent gradient (electric violet → cyan) that appears in buttons, highlights, and illustrations. Everything should feel anti-gravity, lifting, airy, and premium.
+
+Layout structure:
+
+1. Top navigation bar (sticky):
+– Left: Antimomentum logo (simple wordmark with small abstract orbit icon).
+– Right: menu items “Product”, “Workspace”, “Agents”, “Use cases”, “Pricing”, “Docs”.
+– Far right: “Sign in” (text) and a primary pill button “Get early access”.
+Nav is slim, white, with a faint bottom border and slight blur when scrolling.
+
+2. Hero section (above the fold):
+– Centered content similar to Google Antigravity hero.
+– Small eyebrow text: “Research & Office IDE”
+– Main headline: “Flip your momentum into flow.”
+– Subtext: one crisp line explaining: “Antimomentum is a research-first IDE where notes, documents, data, and agentic AI live in a single workspace.”
+– Two primary call-to-action buttons:
+• Solid pill button: “Try the web IDE”
+• Ghost pill button: “Watch a 2-minute demo”
+– On the right (or below on mobile): a mockup card of the Antimomentum IDE inside a rounded laptop/window frame, showing: left sidebar project tree, dark central canvas with blocks, right panel for AI agents. Background behind the mockup uses a soft dotted field / particle field and a subtle gradient halo to give a liftoff / antigravity feel.
+
+3. Trust / quick stat strip:
+Directly under the hero, a horizontal strip with 3–4 small stat cards:
+– “Save 5+ hours per week”
+– “Replace 6+ tools”
+– “Designed for research & office teams”
+Use minimal icons, light grey cards with tiny gradient accents.
+
+4. “All-in-one research cockpit” section:
+Two-column layout. Left side: screenshot collage of the IDE with overlapping floating cards (note block, PDF preview, data table, chart, code cell). Right side: title and bullets.
+Section title: “An IDE for thinking, not just coding.”
+Three bullet groups with small icons:
+– “Research Canvas – drag notes, docs, PDFs, and datasets into a single infinite space.”
+– “Office Mode – write reports, briefs, and documentation without leaving the IDE.”
+– “Timeline Streams – replay how a project evolved, step by step.”
+
+5. “Agentic AI for real work” section:
+Light grey background band with three or four feature cards for agents. Each card is rounded with a subtle gradient border and a simple icon.
+Example cards:
+– Research Agent – summarises papers, links notes to sources.
+– Office Agent – drafts project updates, meeting notes, and documentation.
+– Data Agent – runs queries, updates charts, and writes short insights.
+– Workflow Agent – chains actions together on a schedule.
+Include a small visual flow diagram showing blocks connected by arrows to represent workflows.
+
+6. “Built like an IDE, feels like a notebook” section:
+Split layout again, but reversed.
+– Left: text explaining keyboard shortcuts, command palette, multi-panel layout.
+– Right: UI mock showing a dark inner working area (IDE) inside the light website, with: left project/stream tree, central tabbed editor, bottom console, right inspector. Use a subtle glow to make it feel like a floating window inside the page.
+
+7. Use cases carousel or cards:
+A simple horizontally scrollable carousel or 3-column grid with cards:
+– “Academic research”
+– “Data & analytics teams”
+– “Product & strategy docs”
+– “Client reports & proposals”
+Each card: icon, short description, tiny “See example workflow” link.
+
+8. Pricing preview section:
+Simple, clean, not heavy.
+Title: “Start solo, grow as a team.”
+Three cards: “Starter”, “Pro”, “Team”.
+Light borders, soft drop shadows, toggle for “Monthly / Yearly”. One card (Pro) has a subtle gradient outline to highlight it.
+
+9. Final CTA + footer:
+Repeat strong call to action: “Ready to reverse your momentum?”
+One main button “Get early access” and one secondary “Talk to us”.
+Footer with small logo, slim columns: Product, Company, Resources, Legal, plus social icons. Keep it very minimal like Google product footers.
+
+Design details:
+– Lots of breathing room and vertical spacing.
+– Rounded rectangles, pill buttons, subtle shadows.
+– Thin dotted background patterns and faint gradient blobs to suggest motion and anti-gravity.
+– Typography similar to modern Google product pages: large, friendly sans-serif headings and clean body text.
+– Every section should feel coherent and consistent as part of a polished SaaS / IDE product site.
+
+Make the whole layout responsive, extremely clean, and visually addictive but still professional, with every element clearly connected to the Antimomentum concept: lifting you out of friction and into focused research + office flow.
+
+
+
+
+---
+
+You can paste that whole block into the Design box and hit “Start designing”.
+If you want, next I can write a separate prompt just for the internal IDE screen (not marketing site), so your landing and product UI match perfectly.
