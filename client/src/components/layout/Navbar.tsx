@@ -31,10 +31,10 @@ export function Navbar() {
     <>
       <motion.div 
         style={{ width: navWidth, top: navTop, borderRadius: navBorderRadius }}
-        className="fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ease-out max-w-5xl"
+        className="fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ease-out w-full max-w-[95%] md:max-w-5xl"
       >
         <nav className={`
-          relative flex items-center justify-between px-6 py-3 
+          relative flex items-center justify-between px-4 md:px-6 py-3 
           bg-white/80 backdrop-blur-xl border border-white/20 shadow-sm
           transition-all duration-300
           ${isScrolled ? 'shadow-xl shadow-black/5 border-slate-200/50' : ''}
@@ -67,12 +67,14 @@ export function Navbar() {
 
           {/* Right Actions */}
           <div className="hidden md:flex items-center gap-3">
-            <Link href="/login" className="text-sm font-medium text-slate-600 hover:text-slate-900 px-2">
+            <Link href="/ide" className="text-sm font-medium text-slate-600 hover:text-slate-900 px-2">
               Log in
             </Link>
-            <Button size="sm" className="rounded-full bg-slate-900 text-white hover:bg-slate-800 shadow-lg shadow-slate-900/20 transition-all hover:scale-105">
-              Get Access
-            </Button>
+            <Link href="/ide">
+              <Button size="sm" className="rounded-full bg-slate-900 text-white hover:bg-slate-800 shadow-lg shadow-slate-900/20 transition-all hover:scale-105">
+                Get Access
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Toggle */}
@@ -107,8 +109,12 @@ export function Navbar() {
                 </a>
               ))}
               <div className="mt-8 flex flex-col gap-4">
-                <Button size="lg" className="w-full rounded-full bg-slate-900">Get Started</Button>
-                <Button size="lg" variant="outline" className="w-full rounded-full">Log in</Button>
+                <Link href="/ide">
+                  <Button size="lg" className="w-full rounded-full bg-slate-900">Get Started</Button>
+                </Link>
+                <Link href="/ide">
+                  <Button size="lg" variant="outline" className="w-full rounded-full">Log in</Button>
+                </Link>
               </div>
             </div>
           </motion.div>

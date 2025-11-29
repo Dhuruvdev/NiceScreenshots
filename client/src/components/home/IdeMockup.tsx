@@ -126,8 +126,8 @@ export function IdeMockup() {
       </div>
       
       {/* Floating "Run" FAB */}
-      <div className="absolute bottom-6 right-6 w-12 h-12 rounded-full bg-gradient-to-tr from-violet-600 to-cyan-500 shadow-lg shadow-violet-500/30 flex items-center justify-center text-white hover:scale-110 transition-transform cursor-pointer z-10">
-        <Play size={20} fill="currentColor" />
+      <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-tr from-violet-600 to-cyan-500 shadow-lg shadow-violet-500/30 flex items-center justify-center text-white hover:scale-110 transition-transform cursor-pointer z-10">
+        <Play size={20} fill="currentColor" className="w-4 h-4 md:w-5 md:h-5" />
       </div>
     </div>
   );

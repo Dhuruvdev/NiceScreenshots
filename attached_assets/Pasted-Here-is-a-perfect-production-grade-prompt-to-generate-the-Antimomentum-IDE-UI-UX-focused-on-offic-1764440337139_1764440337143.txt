@@ -1,0 +1,181 @@
+Here is a perfect, production-grade prompt to generate the Antimomentum IDE UI/UX — focused on office work, research, documentation, structured thinking, intelligent workflows, and integrations.
+
+This prompt will generate high-end UI like Notion + ChatGPT Projects + Perplexity + Linear, optimized for both desktop and mobile.
+
+
+---
+
+⭐ Antimomentum – IDE for Focus, Research & Work
+
+Master Prompt for UI/UX Generation
+
+PROMPT:
+
+> Design a next-generation intelligent IDE called “Antimomentum.”
+Antimomentum is not a coding editor — it is a complete environment where users focus, think, research, document, write, plan, and get work done fast through a clean, powerful, AI-augmented interface.
+
+🎯 Core Concept
+
+Create a unified workspace combining:
+
+Office Work Tools (notes, documents, calendars, tasks, meeting summaries)
+
+Research Tools (AI research assistant, citations, web search, source linking, PDF viewer, insights extraction)
+
+Documentation Tools (structured documents, outlines, multi-page research reports, versioning)
+
+Integrated Thinking Tools (mind maps, whiteboards, concept graphs, brainstorm mode)
+
+Agentic AI Tools (automated tasks, workflow suggestions, writing & research copilots)
+
+
+The layout must feel like a blend of Notion + ChatGPT Projects + Perplexity + Linear + Apple Notes.
+
+
+---
+
+🎛 UI Structure (Desktop)
+
+Left Sidebar: Workspaces, folders, documents, research projects, AI agents, integrations.
+
+Center Panel: Document or research canvas (writing, notes, PDF, outline, mind map).
+
+Right AI Panel:
+
+Ask questions
+
+Generate insights
+
+Summaries
+
+Citations
+
+Research references
+
+Workflow suggestions
+
+
+Bottom Timeline Bar: Tasks, progress tracking, work sessions, assistant actions, reminders.
+
+Top Command Bar: Global search, mode switcher (Focus / Research / Write / Plan).
+
+
+
+---
+
+📱 Mobile UI
+
+A simplified version with:
+
+Home feed of tasks & documents
+
+Quick AI research
+
+Document editor
+
+Timeline
+
+Voice input and note capture
+
+
+
+---
+
+🎨 Visual Style
+
+Clean, calm, minimalistic
+
+Dark mode dominant
+
+Soft shadows, rounded cards
+
+Modern typography
+
+Thoughtful spacing
+
+Premium productivity aesthetic
+
+
+
+---
+
+🤖 AI Integration
+
+Inline AI suggestions inside the document
+
+Research agent that fetches facts, citations, sources
+
+Writing assistant integrated in the sidebar
+
+Automatic document structuring & outlining
+
+Meeting summary generator
+
+Mind map auto-generation
+
+
+
+---
+
+🔗 Integrations
+
+PDF import
+
+Google Docs / Notion import
+
+Web search
+
+Data sources
+
+Calendar integration
+
+
+
+---
+
+👁‍🗨 Scene Requirements
+
+Show desktop & mobile views side-by-side
+
+Showcase:
+
+workspace sidebar
+
+document editor
+
+research panel
+
+AI answering a question
+
+timeline or task panel
+
+minimal icons and toolbars
+
+
+Use realistic glowing screens, premium UI, subtle lighting
+
+
+
+---
+
+🏁 Final Goal
+
+A layout that communicates deep focus, structured thinking, rapid research, fast documentation, and intelligent workflow automation — all inside one environment.
+
+
+
+
+---
+
+✔ Ready to generate
+
+Copy this entire prompt into the image generator — it will produce the exact Antimomentum IDE UI/UX you want.
+
+If you want:
+
+🔹 a coding IDE version
+🔹 a research-only version
+🔹 a writing-only version
+🔹 a full mobile-only layout prompt
+
+Just tell me — I’ll create it.
