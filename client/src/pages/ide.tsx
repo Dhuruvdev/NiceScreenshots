@@ -8,18 +8,22 @@ import {
   Settings, 
   Plus, 
   ChevronRight, 
-  MoreHorizontal,
   Sparkles,
   Paperclip,
   Mic,
   Menu,
   X,
   Folder,
-  ArrowLeft,
   PanelRightOpen,
   PanelRightClose,
   PanelLeftOpen,
-  PanelLeftClose
+  PanelLeftClose,
+  Zap,
+  SlidersHorizontal,
+  ArrowUp,
+  Image,
+  Link as LinkIcon,
+  MessageSquare
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,6 +37,7 @@ export default function Ide() {
   const [leftSidebarOpen, setLeftSidebarOpen] = useState(true);
   const [rightPanelOpen, setRightPanelOpen] = useState(true);
   const [activeTab, setActiveTab] = useState("editor");
+  const [showIntegrations, setShowIntegrations] = useState(false);
   const isMobile = useIsMobile();
 
   // Auto-collapse panels on mobile
@@ -96,6 +101,19 @@ export default function Ide() {
                       </Button>
                     ))}
                   </div>
+                </div>
+
+                {/* Integrations Tab */}
+                <div>
+                  <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3 px-2">Connect</h3>
+                  <Button 
+                    variant="ghost" 
+                    onClick={() => setShowIntegrations(true)}
+                    className={`w-full justify-start gap-2 h-9 text-sm font-medium px-2 border border-transparent transition-all ${showIntegrations ? 'bg-slate-100 text-black border-slate-200' : 'text-slate-600 hover:text-black hover:bg-slate-100 hover:border-slate-200'}`}
+                  >
+                    <LinkIcon size={16} />
+                    Integrations
+                  </Button>
                 </div>
 
                 {/* Recent */}
@@ -169,14 +187,14 @@ export default function Ide() {
              {/* Desktop: Mode Switcher */}
              <div className="hidden md:flex p-1 bg-slate-100 rounded-lg border border-slate-200">
                 <button 
-                   onClick={() => setActiveTab('editor')}
-                   className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${activeTab === 'editor' ? 'bg-white text-black shadow-sm border border-slate-200' : 'text-slate-500 hover:text-slate-700'}`}
+                   onClick={() => { setActiveTab('editor'); setShowIntegrations(false); }}
+                   className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${!showIntegrations && activeTab === 'editor' ? 'bg-white text-black shadow-sm border border-slate-200' : 'text-slate-500 hover:text-slate-700'}`}
                 >
                   Write
                 </button>
                 <button 
-                   onClick={() => setActiveTab('visual')}
-                   className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${activeTab === 'visual' ? 'bg-white text-black shadow-sm border border-slate-200' : 'text-slate-500 hover:text-slate-700'}`}
+                   onClick={() => { setActiveTab('visual'); setShowIntegrations(false); }}
+                   className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${!showIntegrations && activeTab === 'visual' ? 'bg-white text-black shadow-sm border border-slate-200' : 'text-slate-500 hover:text-slate-700'}`}
                 >
                   Visual
                 </button>
@@ -190,81 +208,121 @@ export default function Ide() {
           </div>
         </header>
 
-        {/* Editor Area */}
+        {/* Content Area */}
         <div className="flex-1 overflow-hidden relative flex flex-col">
           
-          {/* Toolbar (Optional) */}
-          <div className="border-b border-slate-100 px-4 md:px-8 py-2 flex items-center gap-4 overflow-x-auto no-scrollbar">
-             <div className="flex items-center gap-1 p-1 rounded-md hover:bg-slate-100 cursor-pointer">
-                <span className="text-sm font-serif font-bold">H1</span>
-             </div>
-             <div className="flex items-center gap-1 p-1 rounded-md hover:bg-slate-100 cursor-pointer">
-                <span className="text-sm font-bold">B</span>
-             </div>
-             <div className="flex items-center gap-1 p-1 rounded-md hover:bg-slate-100 cursor-pointer">
-                <span className="text-sm italic font-serif">I</span>
-             </div>
-             <div className="w-px h-4 bg-slate-200" />
-             <button className="flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-black px-2 py-1 rounded-md hover:bg-slate-100">
-                <Sparkles size={12} />
-                Ask AI to edit
-             </button>
-          </div>
+          {showIntegrations ? (
+            /* INTEGRATIONS VIEW */
+            <div className="flex-1 overflow-y-auto bg-slate-50 p-8">
+              <div className="max-w-5xl mx-auto">
+                 <div className="mb-8">
+                    <h1 className="text-3xl font-bold text-slate-900 mb-2">Integrations</h1>
+                    <p className="text-slate-500">Connect your favorite tools to bring research and docs directly into Antimomentum.</p>
+                 </div>
+                 
+                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {[
+                      { name: "Google Docs", icon: "https://upload.wikimedia.org/wikipedia/commons/0/01/Google_Docs_logo_%282014-2020%29.svg", connected: true, desc: "Import and sync documents." },
+                      { name: "Notion", icon: "https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png", connected: false, desc: "Sync pages and databases." },
+                      { name: "Microsoft Word", icon: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Microsoft_Office_Word_%282019%E2%80%93present%29.svg", connected: false, desc: "Edit .docx files directly." },
+                      { name: "Slack", icon: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Slack_icon_2019.svg", connected: true, desc: "Send daily summaries to channels." },
+                      { name: "Linear", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Linear_logo.svg/1200px-Linear_logo.svg.png", connected: false, desc: "Create issues from research notes." },
+                      { name: "GitHub", icon: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", connected: false, desc: "Link PRs to documentation." },
+                    ].map((tool, i) => (
+                       <div key={i} className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                          <div className="flex justify-between items-start mb-4">
+                             <div className="w-12 h-12 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center p-2">
+                                <img src={tool.icon} alt={tool.name} className="w-full h-full object-contain" />
+                             </div>
+                             <div className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide ${tool.connected ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-500'}`}>
+                                {tool.connected ? 'Active' : 'Connect'}
+                             </div>
+                          </div>
+                          <h3 className="font-bold text-slate-900 mb-1">{tool.name}</h3>
+                          <p className="text-xs text-slate-500 mb-4">{tool.desc}</p>
+                          <Button variant={tool.connected ? "outline" : "default"} className={`w-full h-8 text-xs ${tool.connected ? '' : 'bg-black text-white'}`}>
+                             {tool.connected ? 'Manage' : 'Connect'}
+                          </Button>
+                       </div>
+                    ))}
+                 </div>
+              </div>
+            </div>
+          ) : (
+            /* EDITOR VIEW */
+            <div className="flex-1 overflow-y-auto bg-white">
+               {/* Toolbar (Optional) */}
+              <div className="border-b border-slate-100 px-4 md:px-8 py-2 flex items-center gap-4 overflow-x-auto no-scrollbar sticky top-0 bg-white z-10">
+                 <div className="flex items-center gap-1 p-1 rounded-md hover:bg-slate-100 cursor-pointer">
+                    <span className="text-sm font-serif font-bold">H1</span>
+                 </div>
+                 <div className="flex items-center gap-1 p-1 rounded-md hover:bg-slate-100 cursor-pointer">
+                    <span className="text-sm font-bold">B</span>
+                 </div>
+                 <div className="flex items-center gap-1 p-1 rounded-md hover:bg-slate-100 cursor-pointer">
+                    <span className="text-sm italic font-serif">I</span>
+                 </div>
+                 <div className="w-px h-4 bg-slate-200" />
+                 <button className="flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-black px-2 py-1 rounded-md hover:bg-slate-100">
+                    <Sparkles size={12} />
+                    Ask AI to edit
+                 </button>
+              </div>
 
-          <div className="flex-1 overflow-y-auto bg-white">
-             <div className="max-w-3xl mx-auto py-8 md:py-16 px-6 md:px-12 min-h-full">
-                <h1 className="text-3xl md:text-5xl font-bold text-slate-900 mb-8 font-display tracking-tight leading-tight">
-                  Q3 Product Launch Strategy
-                </h1>
-                
-                <div className="prose prose-slate prose-lg max-w-none">
-                  <p className="lead text-xl text-slate-600">
-                    The primary objective of the Q3 launch is to penetrate the enterprise market with our new "Teams" feature set. 
-                  </p>
+               <div className="max-w-3xl mx-auto py-8 md:py-16 px-6 md:px-12 min-h-full">
+                  <h1 className="text-3xl md:text-5xl font-bold text-slate-900 mb-8 font-display tracking-tight leading-tight">
+                    Q3 Product Launch Strategy
+                  </h1>
                   
-                  {/* AI Suggestion Block - White/Black Outline Style */}
-                  <div className="my-8 p-0 rounded-xl border border-slate-900 bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] not-prose overflow-hidden">
-                    <div className="bg-slate-50 px-4 py-2 border-b border-slate-900 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-900">
-                      <Sparkles size={14} />
-                      AI Insight
-                    </div>
-                    <div className="p-5">
-                      <p className="text-sm text-slate-700 mb-4 font-medium leading-relaxed">
-                        I've analyzed 15 competitor launches from the last year. Enterprise adoption typically spikes 
-                        when security compliance (SOC2) is highlighted in the first fold.
-                      </p>
-                      <div className="flex gap-3">
-                        <Button size="sm" className="h-8 bg-black text-white hover:bg-slate-800 rounded-md text-xs font-bold">
-                          Apply Suggestion
-                        </Button>
-                        <Button size="sm" variant="outline" className="h-8 border-slate-200 text-slate-600 hover:text-black rounded-md text-xs">
-                          Dismiss
-                        </Button>
+                  <div className="prose prose-slate prose-lg max-w-none">
+                    <p className="lead text-xl text-slate-600">
+                      The primary objective of the Q3 launch is to penetrate the enterprise market with our new "Teams" feature set. 
+                    </p>
+                    
+                    {/* AI Suggestion Block - White/Black Outline Style */}
+                    <div className="my-8 p-0 rounded-xl border border-slate-900 bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] not-prose overflow-hidden">
+                      <div className="bg-slate-50 px-4 py-2 border-b border-slate-900 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-900">
+                        <Sparkles size={14} />
+                        AI Insight
+                      </div>
+                      <div className="p-5">
+                        <p className="text-sm text-slate-700 mb-4 font-medium leading-relaxed">
+                          I've analyzed 15 competitor launches from the last year. Enterprise adoption typically spikes 
+                          when security compliance (SOC2) is highlighted in the first fold.
+                        </p>
+                        <div className="flex gap-3">
+                          <Button size="sm" className="h-8 bg-black text-white hover:bg-slate-800 rounded-md text-xs font-bold">
+                            Apply Suggestion
+                          </Button>
+                          <Button size="sm" variant="outline" className="h-8 border-slate-200 text-slate-600 hover:text-black rounded-md text-xs">
+                            Dismiss
+                          </Button>
+                        </div>
                       </div>
                     </div>
+
+                    <h2>1. Market Analysis</h2>
+                    <p>
+                      Current market sentiment leans heavily towards consolidated tooling. Users are tired of switching between 
+                      Notion, Linear, and Slack. <span className="bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-sm font-medium text-slate-900 align-middle cursor-pointer hover:bg-slate-200">citation needed</span>
+                    </p>
+
+                    <ul className="marker:text-black">
+                      <li>Consolidation of toolchains into single-pane-of-glass interfaces.</li>
+                      <li>AI-native workflows replacing manual data entry.</li>
+                      <li>Real-time collaboration latency becoming a key decision factor.</li>
+                    </ul>
+
+                    <h2>2. Key Differentiators</h2>
+                    <p>
+                      Unlike traditional IDEs, Antimomentum focuses on the "pre-code" phase: thinking, planning, and researching.
+                    </p>
                   </div>
-
-                  <h2>1. Market Analysis</h2>
-                  <p>
-                    Current market sentiment leans heavily towards consolidated tooling. Users are tired of switching between 
-                    Notion, Linear, and Slack. <span className="bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-sm font-medium text-slate-900 align-middle cursor-pointer hover:bg-slate-200">citation needed</span>
-                  </p>
-
-                  <ul className="marker:text-black">
-                    <li>Consolidation of toolchains into single-pane-of-glass interfaces.</li>
-                    <li>AI-native workflows replacing manual data entry.</li>
-                    <li>Real-time collaboration latency becoming a key decision factor.</li>
-                  </ul>
-
-                  <h2>2. Key Differentiators</h2>
-                  <p>
-                    Unlike traditional IDEs, Antimomentum focuses on the "pre-code" phase: thinking, planning, and researching.
-                  </p>
-                </div>
-                
-                <div className="h-32" />
-             </div>
-          </div>
+                  
+                  <div className="h-32" />
+               </div>
+            </div>
+          )}
         </div>
 
         {/* Bottom Timeline Bar */}
@@ -301,15 +359,15 @@ export default function Ide() {
              
              <motion.aside
                initial={isMobile ? { x: "100%" } : { width: 0, opacity: 0 }}
-               animate={isMobile ? { x: 0 } : { width: 320, opacity: 1 }}
+               animate={isMobile ? { x: 0 } : { width: 360, opacity: 1 }}
                exit={isMobile ? { x: "100%" } : { width: 0, opacity: 0 }}
                transition={{ type: "spring", stiffness: 300, damping: 30 }}
                className={`
                  fixed md:relative right-0 z-50 h-full bg-white border-l border-slate-200 flex flex-col
-                 ${isMobile ? "w-[85%] max-w-[320px] shadow-2xl" : "flex-shrink-0"}
+                 ${isMobile ? "w-[90%] max-w-[360px] shadow-2xl" : "flex-shrink-0"}
                `}
              >
-              <div className="p-4 h-14 border-b border-slate-200 flex items-center justify-between bg-slate-50/50">
+              <div className="p-4 h-14 border-b border-slate-200 flex items-center justify-between bg-white">
                 <div className="flex items-center gap-2 text-sm font-bold text-slate-900">
                   <Sparkles size={16} className="text-violet-600" />
                   Research Assistant
@@ -322,7 +380,7 @@ export default function Ide() {
               </div>
 
               <ScrollArea className="flex-1 p-4 bg-slate-50/30">
-                <div className="space-y-6">
+                <div className="space-y-6 pb-4">
                   <div className="flex gap-3">
                     <Avatar className="w-8 h-8 rounded-md border border-slate-200 bg-white">
                       <AvatarImage src="https://github.com/shadcn.png" />
@@ -356,25 +414,37 @@ export default function Ide() {
                 </div>
               </ScrollArea>
 
-              {/* Input Area */}
+              {/* CLONED INPUT AREA - Matches Screenshot */}
               <div className="p-4 border-t border-slate-200 bg-white">
-                <div className="relative shadow-sm">
-                  <Input 
-                    placeholder="Ask AI..." 
-                    className="pr-10 border-slate-200 focus-visible:ring-black focus-visible:border-black bg-slate-50"
-                  />
-                  <Button size="icon" variant="ghost" className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 text-slate-400 hover:text-black">
-                    <Mic size={16} />
-                  </Button>
-                </div>
-                <div className="flex items-center justify-between mt-3">
-                  <Button size="icon" variant="ghost" className="h-8 w-8 text-slate-400 hover:text-black -ml-2">
-                      <Paperclip size={16} />
-                   </Button>
-                  <div className="text-[10px] font-medium text-slate-400 uppercase tracking-wide">
-                     Context: Launch Memo
-                  </div>
-                </div>
+                 <div className="relative bg-white rounded-2xl border border-slate-200 shadow-lg shadow-slate-200/50 p-3">
+                    <Input 
+                      placeholder="Make, test, iterate..." 
+                      className="border-0 focus-visible:ring-0 p-0 h-auto text-base placeholder:text-slate-400 bg-transparent mb-10"
+                    />
+                    
+                    <div className="flex items-center justify-between absolute bottom-3 left-3 right-3">
+                       <div className="flex items-center gap-2">
+                          <Button size="icon" variant="ghost" className="h-8 w-8 text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded-lg">
+                             <Paperclip size={18} />
+                          </Button>
+                          <Button size="icon" variant="ghost" className="h-8 w-8 text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded-lg">
+                             <Mic size={18} />
+                          </Button>
+                       </div>
+                       
+                       <div className="flex items-center gap-2">
+                          <Button size="icon" variant="ghost" className="h-8 w-8 text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded-lg">
+                             <Zap size={18} />
+                          </Button>
+                          <Button size="icon" variant="ghost" className="h-8 w-8 text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded-lg">
+                             <SlidersHorizontal size={18} />
+                          </Button>
+                          <Button size="icon" className="h-8 w-8 bg-slate-200 text-slate-400 hover:bg-black hover:text-white rounded-lg transition-colors">
+                             <ArrowUp size={18} />
+                          </Button>
+                       </div>
+                    </div>
+                 </div>
               </div>
             </motion.aside>
           </>
