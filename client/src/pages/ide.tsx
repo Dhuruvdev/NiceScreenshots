@@ -223,13 +223,33 @@ export default function Ide() {
             <Button variant="ghost" size="icon" className="text-slate-500 hover:text-black hover:bg-slate-100" onClick={() => setLeftSidebarOpen(!leftSidebarOpen)}>
               {leftSidebarOpen ? <PanelLeftClose size={18} /> : <PanelLeftOpen size={18} />}
             </Button>
+
+            {/* Back/Forward Nav Icons */}
+            <div className="flex items-center gap-1 md:hidden">
+              <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 hover:text-black">
+                <ChevronRight size={16} className="rotate-180" />
+              </Button>
+              <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 hover:text-black">
+                <Clock size={16} />
+              </Button>
+            </div>
             
             <div className="h-6 w-px bg-slate-200 mx-1 hidden md:block" />
             
-            {/* Breadcrumb */}
-            <div className="flex items-center gap-2 text-sm text-slate-500 overflow-hidden">
-               <span className="hidden md:inline hover:text-black cursor-pointer hover:underline underline-offset-4">Research Q3</span>
-               <ChevronRight size={14} className="flex-shrink-0 text-slate-300 hidden md:block" />
+            {/* Design Badge - Centered */}
+            <div className="flex-1 flex items-center justify-center">
+              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 text-purple-700">
+                <div className="w-4 h-4 rounded flex items-center justify-center bg-purple-500">
+                  <Sparkles size={10} className="text-white" />
+                </div>
+                <span className="text-xs font-semibold">Design</span>
+              </div>
+            </div>
+
+            {/* Breadcrumb - Hidden on mobile */}
+            <div className="hidden md:flex items-center gap-2 text-sm text-slate-500 overflow-hidden">
+               <span className="hover:text-black cursor-pointer hover:underline underline-offset-4">Research Q3</span>
+               <ChevronRight size={14} className="flex-shrink-0 text-slate-300" />
                <span className="font-semibold text-slate-900 truncate flex items-center gap-2">
                  <FileText size={14} className="text-slate-400" />
                  Launch Memo
@@ -401,89 +421,109 @@ export default function Ide() {
           )}
         </div>
 
-        {/* Bottom Timeline Bar + Quick Tools */}
-        <div className="border-t border-slate-200 bg-white z-20">
-          {/* Timeline/Status Bar */}
-          <div className="h-10 flex items-center px-4 justify-between text-xs font-medium border-b border-slate-100">
-            <div className="flex items-center gap-4 text-slate-500">
-              <div className="flex items-center gap-2 hover:text-black cursor-pointer">
-                <Clock size={14} />
-                <span className="hidden sm:inline">1 minute of work</span>
-              </div>
-              <div className="h-4 w-px bg-slate-200 hidden sm:block" />
-              <div className="flex items-center gap-1.5 text-green-600">
-                <div className="w-1.5 h-1.5 rounded-full bg-green-600" />
-                <span>Online</span>
-              </div>
+        {/* Bottom Input + Quick Tools - Exact Design Match */}
+        <div className="border-t border-slate-200 bg-slate-50 z-20 flex flex-col">
+          {/* Timer Header */}
+          <div className="px-4 py-3 border-b border-slate-200 bg-white flex items-center gap-2 justify-between">
+            <div className="flex items-center gap-2 text-xs font-medium text-slate-600">
+              <Clock size={14} className="text-cyan-500" />
+              <span>1 minute of work</span>
             </div>
-            <div className="flex items-center gap-2 text-slate-400">
-               <span>Autosaved</span>
-            </div>
+            <ChevronRight size={14} className="text-slate-400 rotate-90" />
           </div>
 
-          {/* Quick Tools/Tabs Bar */}
-          <div className="h-20 flex items-center gap-3 px-4 py-2 overflow-x-auto no-scrollbar">
-            {/* Local/Development Tab */}
-            <div className="flex-shrink-0 flex flex-col items-center gap-1">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                <div className="w-4 h-4 bg-black rounded-sm"></div>
-              </div>
-              <span className="text-[10px] font-medium text-slate-600">Local</span>
-            </div>
-
-            {/* Monitor/Desktop Tab */}
-            <div className="flex-shrink-0 flex flex-col items-center gap-1">
-              <div className="w-12 h-12 rounded-2xl bg-slate-100 border-2 border-slate-300 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer">
-                <div className="w-6 h-5 border-2 border-slate-600 rounded"></div>
-              </div>
-              <span className="text-[10px] font-medium text-slate-600">Monitor</span>
-            </div>
-
-            {/* Agents/Teams Tab */}
-            <div className="flex-shrink-0 flex flex-col items-center gap-1">
-              <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer">
-                <div className="flex gap-0.5">
-                  <div className="w-2 h-4 rounded-full bg-purple-500"></div>
-                  <div className="w-2 h-4 rounded-full bg-purple-400"></div>
-                  <div className="w-2 h-4 rounded-full bg-purple-300"></div>
+          {/* Main Input Box with Cyan Border */}
+          <div className="flex-1 flex flex-col items-center justify-center px-4 py-4 gap-4">
+            <div className="w-full max-w-2xl relative">
+              <div className="relative bg-white rounded-3xl border-2 border-cyan-400 shadow-lg shadow-cyan-100/50 p-4 transition-all hover:shadow-cyan-200/80">
+                <Input 
+                  placeholder="Make, test, iterate..." 
+                  className="border-0 focus-visible:ring-0 p-0 h-auto text-base placeholder:text-slate-400 bg-transparent mb-10"
+                />
+                
+                <div className="flex items-center justify-between absolute bottom-3 left-4 right-4">
+                  <div className="flex items-center gap-2">
+                    <Button size="icon" variant="ghost" className="h-8 w-8 text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors">
+                      <Paperclip size={18} />
+                    </Button>
+                    <Button size="icon" variant="ghost" className="h-8 w-8 text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors">
+                      <Mic size={18} />
+                    </Button>
+                  </div>
+                  
+                  <div className="flex items-center gap-2">
+                    <Button size="icon" variant="ghost" className="h-8 w-8 text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors">
+                      <Zap size={18} />
+                    </Button>
+                    <Button size="icon" variant="ghost" className="h-8 w-8 text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors">
+                      <SlidersHorizontal size={18} />
+                    </Button>
+                    <Button size="icon" className="h-8 w-8 bg-cyan-400 text-white hover:bg-cyan-500 rounded-lg transition-colors">
+                      <ArrowUp size={18} />
+                    </Button>
+                  </div>
                 </div>
               </div>
-              <span className="text-[10px] font-medium text-slate-600">Agents</span>
             </div>
 
-            {/* Auth/Antenna Tab */}
-            <div className="flex-shrink-0 flex flex-col items-center gap-1">
-              <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer">
-                <div className="w-3 h-5 flex flex-col items-center justify-between">
-                  <div className="w-2 h-0.5 bg-slate-600"></div>
-                  <div className="w-3 h-0.5 bg-slate-600"></div>
-                  <div className="w-1.5 h-0.5 bg-slate-600"></div>
+            {/* Quick Tools/Tabs Bar */}
+            <div className="flex items-center justify-center gap-2 pb-2">
+              {/* Local/Development Tab */}
+              <div className="flex flex-col items-center gap-1">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white shadow-md hover:shadow-lg transition-shadow cursor-pointer">
+                  <div className="w-5 h-5 bg-black rounded-sm"></div>
                 </div>
               </div>
-              <span className="text-[10px] font-medium text-slate-600">Auth</span>
-            </div>
 
-            {/* Divider */}
-            <div className="w-px h-8 bg-slate-200"></div>
-
-            {/* Add New Tab */}
-            <div className="flex-shrink-0 flex flex-col items-center gap-1">
-              <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer font-bold text-lg">
-                +
-              </div>
-              <span className="text-[10px] font-medium text-slate-600">New Tab</span>
-            </div>
-
-            {/* Layout/Panels Tab */}
-            <div className="flex-shrink-0 flex flex-col items-center gap-1">
-              <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer">
-                <div className="flex gap-1">
-                  <div className="w-1.5 h-3 bg-slate-600"></div>
-                  <div className="w-1.5 h-3 bg-slate-600"></div>
-                  <div className="w-1.5 h-3 bg-slate-600"></div>
+              {/* Monitor/Desktop Tab */}
+              <div className="flex flex-col items-center gap-1">
+                <div className="w-14 h-14 rounded-2xl bg-slate-100 border-2 border-slate-300 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer">
+                  <div className="w-7 h-6 border-2 border-slate-600 rounded"></div>
                 </div>
               </div>
-              <span className="text-[10px] font-medium text-slate-600">Layout</span>
+
+              {/* Agents/Teams Tab */}
+              <div className="flex flex-col items-center gap-1">
+                <div className="w-14 h-14 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer">
+                  <div className="flex gap-0.5">
+                    <div className="w-2.5 h-5 rounded-full bg-purple-500"></div>
+                    <div className="w-2.5 h-5 rounded-full bg-purple-400"></div>
+                    <div className="w-2.5 h-5 rounded-full bg-purple-300"></div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Auth/Antenna Tab */}
+              <div className="flex flex-col items-center gap-1">
+                <div className="w-14 h-14 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer">
+                  <div className="w-3 h-5 flex flex-col items-center justify-between">
+                    <div className="w-2 h-0.5 bg-slate-600"></div>
+                    <div className="w-3 h-0.5 bg-slate-600"></div>
+                    <div className="w-1.5 h-0.5 bg-slate-600"></div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div className="w-px h-10 bg-slate-300"></div>
+
+              {/* Add New Tab */}
+              <div className="flex flex-col items-center gap-1">
+                <div className="w-14 h-14 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer font-bold text-xl">
+                  +
+                </div>
+              </div>
+
+              {/* Layout/Panels Tab */}
+              <div className="flex flex-col items-center gap-1">
+                <div className="w-14 h-14 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer">
+                  <div className="flex gap-1">
+                    <div className="w-1.5 h-4 bg-slate-600"></div>
+                    <div className="w-1.5 h-4 bg-slate-600"></div>
+                    <div className="w-1.5 h-4 bg-slate-600"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
