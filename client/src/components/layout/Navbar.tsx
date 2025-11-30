@@ -9,10 +9,12 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Transform nav width/padding based on scroll
-  const navWidth = useTransform(scrollY, [0, 100], ["100%", "80%"]);
-  const navTop = useTransform(scrollY, [0, 100], [0, 20]);
-  const navBorderRadius = useTransform(scrollY, [0, 100], [0, 24]);
+  // Smooth transforms for navbar
+  const navWidth = useTransform(scrollY, [0, 150], ["100%", "90%"], { clamp: true });
+  const navTop = useTransform(scrollY, [0, 150], [0, 16], { clamp: true });
+  const navBorderRadius = useTransform(scrollY, [0, 150], [0, 20], { clamp: true });
+  const navScale = useTransform(scrollY, [0, 150], [1, 0.98], { clamp: true });
+  const navOpacity = useTransform(scrollY, [0, 150], [1, 0.95], { clamp: true });
 
   useEffect(() => {
     const updateScroll = () => setIsScrolled(window.scrollY > 50);
@@ -30,16 +32,32 @@ export function Navbar() {
   return (
     <>
       <motion.div 
-        style={{ width: navWidth, top: navTop, borderRadius: navBorderRadius }}
-        className="fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ease-out w-full max-w-[95%] md:max-w-5xl"
+        style={{ 
+          width: navWidth, 
+          top: navTop, 
+          borderRadius: navBorderRadius,
+          scale: navScale,
+          opacity: navOpacity
+        }}
+        className="fixed left-1/2 -translate-x-1/2 z-50 w-full max-w-[95%] md:max-w-5xl"
       >
-        <nav className={`
-          relative flex items-center justify-between px-4 md:px-6 py-3 
-          bg-white/80 backdrop-blur-xl border border-white/20 shadow-sm
-          transition-all duration-300
-          ${isScrolled ? 'shadow-xl shadow-black/5 border-slate-200/50' : ''}
-        `}
-        style={{ borderRadius: isScrolled ? '24px' : '0' }}
+        <motion.nav 
+          className="relative flex items-center justify-between px-4 md:px-6 py-3 bg-white/80 backdrop-blur-xl border border-white/20 shadow-sm"
+          animate={{
+            boxShadow: isScrolled 
+              ? '0 10px 40px rgba(0, 0, 0, 0.08)' 
+              : '0 2px 8px rgba(0, 0, 0, 0.04)',
+            borderColor: isScrolled 
+              ? 'rgba(100, 116, 139, 0.3)' 
+              : 'rgba(255, 255, 255, 0.2)',
+            backgroundColor: isScrolled
+              ? 'rgba(255, 255, 255, 0.9)'
+              : 'rgba(255, 255, 255, 0.8)',
+          }}
+          transition={{ 
+            duration: 0.4, 
+            ease: "easeOut"
+          }}
         >
           {/* Logo Area */}
           <div className="flex items-center gap-2">
