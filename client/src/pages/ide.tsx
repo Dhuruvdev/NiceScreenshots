@@ -156,11 +156,11 @@ export default function Ide() {
             <div className="h-6 w-px bg-slate-200 mx-1" />
             
             {/* Design Badge */}
-            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 text-purple-700">
-              <div className="w-4 h-4 rounded flex items-center justify-center bg-purple-500">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-100 border border-green-200">
+              <div className="w-4 h-4 rounded flex items-center justify-center bg-green-500">
                 <Sparkles size={10} className="text-white" />
               </div>
-              <span className="text-xs font-semibold">Design</span>
+              <span className="text-xs font-semibold text-green-700">Design</span>
             </div>
           </div>
 
@@ -208,21 +208,6 @@ export default function Ide() {
                 </div>
               </div>
 
-              <h2 className="text-xl font-bold text-slate-900 mt-8 mb-4">Quick Tools Tabs:</h2>
-              <ul className="space-y-2 text-slate-700 list-disc pl-5">
-                <li><strong>Local</strong> - Purple gradient button (active state)</li>
-                <li><strong>Monitor</strong> - Desktop monitor icon</li>
-                <li><strong>Agents</strong> - Three purple dots</li>
-                <li><strong>Auth</strong> - Antenna/signal icon</li>
-                <li><strong>Divider</strong> - Visual separator</li>
-                <li><strong>New Tab</strong> - Plus button</li>
-                <li><strong>Layout</strong> - Panel layout icon</li>
-              </ul>
-
-              <p className="text-slate-700 mt-6 mb-6">
-                The design now perfectly matches your screenshots with the cyan accent colors, proper spacing, and all the UI components positioned exactly as shown. The IDE is ready for demonstration!
-              </p>
-
               {/* Status Card */}
               <div className="bg-slate-50 rounded-xl p-4 border border-slate-200 not-prose">
                 <div className="flex items-center gap-2 mb-2">
@@ -235,43 +220,25 @@ export default function Ide() {
                   Add design elements and precise UI matching to the IDE
                 </p>
                 <div className="flex items-center gap-2 flex-wrap">
-                  <Button variant="outline" size="sm" className="h-7 text-xs rounded-full border-slate-300 text-slate-600">
+                  <Button variant="outline" size="sm" className="h-8 text-xs rounded-lg border-slate-300 text-slate-700 font-medium">
                     Rollback here
                   </Button>
-                  <Button variant="outline" size="sm" className="h-7 text-xs rounded-full border-slate-300 text-slate-600">
+                  <Button variant="outline" size="sm" className="h-8 text-xs rounded-lg border-slate-300 text-slate-700 font-medium">
                     Changes
                   </Button>
-                  <Button variant="outline" size="sm" className="h-7 text-xs rounded-full border-slate-300 text-slate-600">
+                  <Button variant="outline" size="sm" className="h-8 text-xs rounded-lg border-slate-300 text-slate-700 font-medium">
                     Preview
                   </Button>
                 </div>
               </div>
 
               {/* Upgrade Banner */}
-              <div className="mt-6 flex items-center justify-between bg-slate-50 rounded-xl p-4 border border-slate-200 not-prose">
+              <div className="mt-6 flex items-center justify-between bg-slate-50 rounded-xl p-4 border border-slate-200 not-prose gap-4">
                 <span className="text-sm text-slate-700">You're in fast mode, upgrade for a smarter Agent</span>
-                <Button size="sm" className="bg-violet-600 hover:bg-violet-700 text-white text-xs font-medium gap-1">
+                <Button size="sm" className="bg-violet-600 hover:bg-violet-700 text-white text-xs font-medium gap-1 shrink-0">
                   <Sparkles size={12} />
                   Upgrade to Core
                 </Button>
-              </div>
-
-              {/* Secondary Input */}
-              <div className="mt-4 not-prose">
-                <div className="bg-white rounded-xl border border-slate-200 p-3">
-                  <p className="text-slate-400 text-sm mb-2">Make targeted changes, 5x faster...</p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <Paperclip size={18} className="text-slate-400" />
-                      <Mic size={18} className="text-slate-400" />
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Zap size={18} className="text-amber-500" />
-                      <SlidersHorizontal size={18} className="text-slate-400" />
-                      <ArrowUp size={18} className="text-slate-400" />
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
             
@@ -284,8 +251,8 @@ export default function Ide() {
           
           {/* Timer Header */}
           <div className="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
-            <div className="flex items-center gap-2 text-sm text-slate-500">
-              <Clock size={16} className="text-cyan-500" />
+            <div className="flex items-center gap-2 text-sm text-slate-600">
+              <Clock size={16} className="text-slate-400" />
               <span>1 minute of work</span>
             </div>
             <ChevronDown size={16} className="text-slate-400" />
@@ -321,7 +288,7 @@ export default function Ide() {
                     <SlidersHorizontal size={20} />
                   </button>
                   <button 
-                    className="w-8 h-8 bg-cyan-400 rounded-lg flex items-center justify-center text-white hover:bg-cyan-500 transition-colors"
+                    className="w-8 h-8 bg-cyan-400 rounded-full flex items-center justify-center text-white hover:bg-cyan-500 transition-colors"
                     data-testid="button-send"
                   >
                     <ArrowUp size={18} strokeWidth={2.5} />
@@ -339,15 +306,12 @@ export default function Ide() {
                 onClick={() => { setActiveToolTab("local"); setShowLayoutPanel(false); }}
                 className={`relative w-12 h-12 rounded-xl flex items-center justify-center transition-all ${
                   activeToolTab === "local" 
-                    ? "bg-gradient-to-br from-violet-400 to-violet-500 shadow-md" 
+                    ? "bg-violet-400 shadow-md" 
                     : "bg-white hover:bg-slate-50"
                 }`}
                 data-testid="button-tool-local"
               >
                 <div className={`w-5 h-5 rounded ${activeToolTab === "local" ? "bg-slate-900" : "bg-slate-400"}`} />
-                {activeToolTab === "local" && (
-                  <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-4 h-1 bg-violet-600 rounded-full" />
-                )}
               </button>
 
               {/* Monitor Button */}
@@ -361,7 +325,7 @@ export default function Ide() {
                 <Monitor size={22} className="text-slate-500" />
               </button>
 
-              {/* Agents Button */}
+              {/* Agents Button - Grid of dots */}
               <button 
                 onClick={() => { setActiveToolTab("agents"); setShowLayoutPanel(false); }}
                 className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all ${
@@ -369,7 +333,7 @@ export default function Ide() {
                 }`}
                 data-testid="button-tool-agents"
               >
-                <AgentsIcon />
+                <AgentsGridIcon />
               </button>
 
               {/* Auth/Globe Button */}
@@ -380,7 +344,7 @@ export default function Ide() {
                 }`}
                 data-testid="button-tool-auth"
               >
-                <Globe size={22} className="text-slate-500" />
+                <AntennaIcon />
               </button>
 
               {/* Divider */}
@@ -474,23 +438,42 @@ export default function Ide() {
   );
 }
 
-function AgentsIcon() {
+// 3x3 Grid of purple dots
+function AgentsGridIcon() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      <circle cx="12" cy="6" r="2.5" fill="#8B5CF6" />
-      <circle cx="6" cy="12" r="2.5" fill="#8B5CF6" />
-      <circle cx="18" cy="12" r="2.5" fill="#8B5CF6" />
-      <circle cx="8" cy="18" r="2.5" fill="#8B5CF6" />
-      <circle cx="16" cy="18" r="2.5" fill="#8B5CF6" />
+      <circle cx="6" cy="6" r="2" fill="#8B5CF6" />
+      <circle cx="12" cy="6" r="2" fill="#8B5CF6" />
+      <circle cx="18" cy="6" r="2" fill="#8B5CF6" />
+      <circle cx="6" cy="12" r="2" fill="#8B5CF6" />
+      <circle cx="12" cy="12" r="2" fill="#8B5CF6" />
+      <circle cx="18" cy="12" r="2" fill="#8B5CF6" />
+      <circle cx="6" cy="18" r="2" fill="#8B5CF6" />
+      <circle cx="12" cy="18" r="2" fill="#8B5CF6" />
+      <circle cx="18" cy="18" r="2" fill="#8B5CF6" />
     </svg>
   );
 }
 
+// Antenna/Signal icon
+function AntennaIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#64748B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="2" />
+      <path d="M16.24 7.76a6 6 0 0 1 0 8.49" />
+      <path d="M7.76 16.24a6 6 0 0 1 0-8.49" />
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+      <path d="M4.93 19.07a10 10 0 0 1 0-14.14" />
+    </svg>
+  );
+}
+
+// Layout icon (two overlapping rectangles)
 function LayoutIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-slate-500">
-      <rect x="3" y="5" width="10" height="14" rx="2" />
-      <rect x="11" y="5" width="10" height="14" rx="2" />
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#64748B" strokeWidth="1.5">
+      <rect x="3" y="5" width="8" height="14" rx="1.5" />
+      <rect x="13" y="5" width="8" height="14" rx="1.5" />
     </svg>
   );
 }
