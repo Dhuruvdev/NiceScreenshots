@@ -401,21 +401,90 @@ export default function Ide() {
           )}
         </div>
 
-        {/* Bottom Timeline Bar */}
-        <div className="h-10 border-t border-slate-200 bg-white flex items-center px-4 justify-between z-20 text-xs font-medium">
-          <div className="flex items-center gap-4 text-slate-500">
-            <div className="flex items-center gap-2 hover:text-black cursor-pointer">
-              <Clock size={14} />
-              <span className="hidden sm:inline">Timeline View</span>
+        {/* Bottom Timeline Bar + Quick Tools */}
+        <div className="border-t border-slate-200 bg-white z-20">
+          {/* Timeline/Status Bar */}
+          <div className="h-10 flex items-center px-4 justify-between text-xs font-medium border-b border-slate-100">
+            <div className="flex items-center gap-4 text-slate-500">
+              <div className="flex items-center gap-2 hover:text-black cursor-pointer">
+                <Clock size={14} />
+                <span className="hidden sm:inline">1 minute of work</span>
+              </div>
+              <div className="h-4 w-px bg-slate-200 hidden sm:block" />
+              <div className="flex items-center gap-1.5 text-green-600">
+                <div className="w-1.5 h-1.5 rounded-full bg-green-600" />
+                <span>Online</span>
+              </div>
             </div>
-            <div className="h-4 w-px bg-slate-200 hidden sm:block" />
-            <div className="flex items-center gap-1.5 text-green-600">
-              <div className="w-1.5 h-1.5 rounded-full bg-green-600" />
-              <span>Online</span>
+            <div className="flex items-center gap-2 text-slate-400">
+               <span>Autosaved</span>
             </div>
           </div>
-          <div className="flex items-center gap-2 text-slate-400">
-             <span>Autosaved</span>
+
+          {/* Quick Tools/Tabs Bar */}
+          <div className="h-20 flex items-center gap-3 px-4 py-2 overflow-x-auto no-scrollbar">
+            {/* Local/Development Tab */}
+            <div className="flex-shrink-0 flex flex-col items-center gap-1">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white shadow-md hover:shadow-lg transition-shadow cursor-pointer">
+                <div className="w-4 h-4 bg-black rounded-sm"></div>
+              </div>
+              <span className="text-[10px] font-medium text-slate-600">Local</span>
+            </div>
+
+            {/* Monitor/Desktop Tab */}
+            <div className="flex-shrink-0 flex flex-col items-center gap-1">
+              <div className="w-12 h-12 rounded-2xl bg-slate-100 border-2 border-slate-300 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer">
+                <div className="w-6 h-5 border-2 border-slate-600 rounded"></div>
+              </div>
+              <span className="text-[10px] font-medium text-slate-600">Monitor</span>
+            </div>
+
+            {/* Agents/Teams Tab */}
+            <div className="flex-shrink-0 flex flex-col items-center gap-1">
+              <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer">
+                <div className="flex gap-0.5">
+                  <div className="w-2 h-4 rounded-full bg-purple-500"></div>
+                  <div className="w-2 h-4 rounded-full bg-purple-400"></div>
+                  <div className="w-2 h-4 rounded-full bg-purple-300"></div>
+                </div>
+              </div>
+              <span className="text-[10px] font-medium text-slate-600">Agents</span>
+            </div>
+
+            {/* Auth/Antenna Tab */}
+            <div className="flex-shrink-0 flex flex-col items-center gap-1">
+              <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer">
+                <div className="w-3 h-5 flex flex-col items-center justify-between">
+                  <div className="w-2 h-0.5 bg-slate-600"></div>
+                  <div className="w-3 h-0.5 bg-slate-600"></div>
+                  <div className="w-1.5 h-0.5 bg-slate-600"></div>
+                </div>
+              </div>
+              <span className="text-[10px] font-medium text-slate-600">Auth</span>
+            </div>
+
+            {/* Divider */}
+            <div className="w-px h-8 bg-slate-200"></div>
+
+            {/* Add New Tab */}
+            <div className="flex-shrink-0 flex flex-col items-center gap-1">
+              <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer font-bold text-lg">
+                +
+              </div>
+              <span className="text-[10px] font-medium text-slate-600">New Tab</span>
+            </div>
+
+            {/* Layout/Panels Tab */}
+            <div className="flex-shrink-0 flex flex-col items-center gap-1">
+              <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer">
+                <div className="flex gap-1">
+                  <div className="w-1.5 h-3 bg-slate-600"></div>
+                  <div className="w-1.5 h-3 bg-slate-600"></div>
+                  <div className="w-1.5 h-3 bg-slate-600"></div>
+                </div>
+              </div>
+              <span className="text-[10px] font-medium text-slate-600">Layout</span>
+            </div>
           </div>
         </div>
       </main>
