@@ -60,6 +60,7 @@ export default function Ide() {
   const [rightPanelOpen, setRightPanelOpen] = useState(true);
   const [activeTab, setActiveTab] = useState("editor");
   const [showIntegrations, setShowIntegrations] = useState(false);
+  const [showFilesPanel, setShowFilesPanel] = useState(false);
   const isMobile = useIsMobile();
 
   // Auto-collapse panels on mobile
@@ -516,7 +517,10 @@ export default function Ide() {
 
               {/* Layout/Panels Tab */}
               <div className="flex flex-col items-center gap-1">
-                <div className="w-14 h-14 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer">
+                <div 
+                  onClick={() => setShowFilesPanel(true)}
+                  className="w-14 h-14 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer"
+                >
                   <div className="flex gap-1">
                     <div className="w-1.5 h-4 bg-slate-600"></div>
                     <div className="w-1.5 h-4 bg-slate-600"></div>
@@ -645,6 +649,159 @@ export default function Ide() {
           <Sparkles size={20} />
         </button>
       )}
+
+      {/* FILES PANEL MODAL */}
+      <AnimatePresence>
+        {showFilesPanel && (
+          <>
+            {/* Overlay */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowFilesPanel(false)}
+              className="fixed inset-0 bg-black/40 z-50"
+            />
+            
+            {/* Files Modal */}
+            <motion.div
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-2xl max-h-[80vh] flex flex-col"
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200">
+                <h2 className="text-lg font-bold text-slate-900">Files</h2>
+                <Button variant="ghost" size="icon" onClick={() => setShowFilesPanel(false)}>
+                  <X size={20} />
+                </Button>
+              </div>
+
+              {/* Files List */}
+              <ScrollArea className="flex-1 px-6 py-4">
+                <div className="space-y-1">
+                  {/* Folders */}
+                  <div className="flex items-center gap-3 py-2 px-2 hover:bg-slate-50 rounded cursor-pointer group">
+                    <Folder size={18} className="text-slate-600" />
+                    <span className="text-sm text-slate-700">attached_assets</span>
+                    <div className="ml-auto flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-semibold">1</span>
+                      <MoreHorizontal size={14} className="text-slate-400" />
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 py-2 px-2 hover:bg-slate-50 rounded cursor-pointer group">
+                    <Folder size={18} className="text-slate-600" />
+                    <span className="text-sm text-slate-700">client</span>
+                    <MoreHorizontal size={14} className="text-slate-400 ml-auto opacity-0 group-hover:opacity-100" />
+                  </div>
+
+                  <div className="flex items-center gap-3 py-2 px-2 hover:bg-slate-50 rounded cursor-pointer group">
+                    <Folder size={18} className="text-slate-600" />
+                    <span className="text-sm text-slate-700">script</span>
+                    <MoreHorizontal size={14} className="text-slate-400 ml-auto opacity-0 group-hover:opacity-100" />
+                  </div>
+
+                  <div className="flex items-center gap-3 py-2 px-2 hover:bg-slate-50 rounded cursor-pointer group">
+                    <Folder size={18} className="text-slate-600" />
+                    <span className="text-sm text-slate-700">server</span>
+                    <MoreHorizontal size={14} className="text-slate-400 ml-auto opacity-0 group-hover:opacity-100" />
+                  </div>
+
+                  <div className="flex items-center gap-3 py-2 px-2 hover:bg-slate-50 rounded cursor-pointer group">
+                    <Folder size={18} className="text-slate-600" />
+                    <span className="text-sm text-slate-700">shared</span>
+                    <MoreHorizontal size={14} className="text-slate-400 ml-auto opacity-0 group-hover:opacity-100" />
+                  </div>
+
+                  {/* Files */}
+                  <div className="flex items-center gap-3 py-2 px-2 hover:bg-slate-50 rounded cursor-pointer group mt-2">
+                    <FileText size={18} className="text-amber-600" />
+                    <span className="text-sm text-slate-700">components.json</span>
+                    <MoreHorizontal size={14} className="text-slate-400 ml-auto opacity-0 group-hover:opacity-100" />
+                  </div>
+
+                  <div className="flex items-center gap-3 py-2 px-2 hover:bg-slate-50 rounded cursor-pointer group">
+                    <FileText size={18} className="text-blue-600" />
+                    <span className="text-sm text-slate-700">drizzle.config.ts</span>
+                    <MoreHorizontal size={14} className="text-slate-400 ml-auto opacity-0 group-hover:opacity-100" />
+                  </div>
+
+                  <div className="flex items-center gap-3 py-2 px-2 hover:bg-slate-50 rounded cursor-pointer group">
+                    <FileText size={18} className="text-amber-600" />
+                    <span className="text-sm text-slate-700">postcss.config.js</span>
+                    <MoreHorizontal size={14} className="text-slate-400 ml-auto opacity-0 group-hover:opacity-100" />
+                  </div>
+
+                  <div className="flex items-center gap-3 py-2 px-2 hover:bg-slate-50 rounded cursor-pointer group">
+                    <FileText size={18} className="text-amber-600" />
+                    <span className="text-sm text-slate-700">tsconfig.json</span>
+                    <MoreHorizontal size={14} className="text-slate-400 ml-auto opacity-0 group-hover:opacity-100" />
+                  </div>
+
+                  <div className="flex items-center gap-3 py-2 px-2 hover:bg-slate-50 rounded cursor-pointer group">
+                    <FileText size={18} className="text-blue-600" />
+                    <span className="text-sm text-slate-700">vite-plugin-meta-images.ts</span>
+                    <MoreHorizontal size={14} className="text-slate-400 ml-auto opacity-0 group-hover:opacity-100" />
+                  </div>
+
+                  <div className="flex items-center gap-3 py-2 px-2 hover:bg-slate-50 rounded cursor-pointer group">
+                    <FileText size={18} className="text-blue-600" />
+                    <span className="text-sm text-slate-700">vite.config.ts</span>
+                    <MoreHorizontal size={14} className="text-slate-400 ml-auto opacity-0 group-hover:opacity-100" />
+                  </div>
+
+                  {/* Packager Files Section */}
+                  <div className="pt-4 mt-4 border-t border-slate-200">
+                    <h3 className="text-xs font-semibold text-slate-500 uppercase px-2 mb-3">Packager files</h3>
+                    <div className="flex items-center gap-3 py-2 px-2 hover:bg-slate-50 rounded cursor-pointer group">
+                      <FileText size={18} className="text-red-600" />
+                      <span className="text-sm text-slate-700">package-lock.json</span>
+                      <MoreHorizontal size={14} className="text-slate-400 ml-auto opacity-0 group-hover:opacity-100" />
+                    </div>
+
+                    <div className="flex items-center gap-3 py-2 px-2 hover:bg-slate-50 rounded cursor-pointer group">
+                      <FileText size={18} className="text-red-600" />
+                      <span className="text-sm text-slate-700">package.json</span>
+                      <MoreHorizontal size={14} className="text-slate-400 ml-auto opacity-0 group-hover:opacity-100" />
+                    </div>
+                  </div>
+                </div>
+              </ScrollArea>
+
+              {/* Action Buttons */}
+              <div className="px-6 py-4 border-t border-slate-200 flex gap-3 bg-slate-50">
+                <Button variant="outline" className="flex-1 h-10 gap-2">
+                  <Plus size={16} />
+                  New file
+                </Button>
+                <Button variant="outline" className="flex-1 h-10 gap-2">
+                  <Folder size={16} />
+                  New folder
+                </Button>
+                <Button variant="outline" className="flex-1 h-10 gap-2">
+                  <Download size={16} />
+                  Upload files
+                </Button>
+              </div>
+
+              {/* Search Bar at Bottom */}
+              <div className="px-6 py-3 border-t border-slate-200 flex items-center gap-2 bg-white">
+                <Folder size={16} className="text-slate-400" />
+                <Input 
+                  placeholder="Search..." 
+                  className="border-slate-300 placeholder:text-slate-400 h-9"
+                />
+                <Button variant="ghost" size="icon" className="text-slate-400 hover:text-slate-900">
+                  <X size={18} />
+                </Button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
     </div>
   );
