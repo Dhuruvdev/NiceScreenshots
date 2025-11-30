@@ -17,15 +17,14 @@ import {
   Check,
   ChevronDown,
   ChevronRight,
-  Globe,
   Sparkles,
   FileText,
   Folder,
   Settings,
   Clock,
-  PanelLeftOpen,
-  PanelLeftClose,
-  Terminal
+  ArrowLeft,
+  RotateCcw,
+  MoreVertical
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -41,9 +40,10 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function Ide() {
   const [inputValue, setInputValue] = useState("");
-  const [activeToolTab, setActiveToolTab] = useState("local");
+  const [activeToolTab, setActiveToolTab] = useState("agents");
   const [showLayoutPanel, setShowLayoutPanel] = useState(false);
   const [leftSidebarOpen, setLeftSidebarOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("design");
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -69,33 +69,50 @@ export default function Ide() {
       >
         <div className={`flex-1 flex flex-col min-h-0 bg-white ${showLayoutPanel ? "rounded-2xl shadow-xl border border-slate-200 m-3" : ""}`}>
           
-          {/* Header */}
-          <header className="h-14 border-b border-slate-200 flex items-center justify-between px-4 bg-white z-20 shrink-0">
-            <div className="flex items-center gap-3">
-              <Button variant="ghost" size="icon" className="text-slate-500 hover:text-black hover:bg-slate-100" onClick={() => setLeftSidebarOpen(!leftSidebarOpen)}>
-                {leftSidebarOpen ? <PanelLeftClose size={18} /> : <PanelLeftOpen size={18} />}
-              </Button>
-              
-              <div className="h-6 w-px bg-slate-200 mx-1" />
-              
-              {/* Design Badge */}
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-100 border border-green-200">
-                <div className="w-4 h-4 rounded flex items-center justify-center bg-green-500">
-                  <Sparkles size={10} className="text-white" />
-                </div>
-                <span className="text-xs font-semibold text-green-700">Design</span>
-              </div>
+          {/* Top Navbar - macOS Style */}
+          <header className="h-12 border-b border-slate-200 flex items-center justify-between px-3 bg-white z-20 shrink-0">
+            {/* Left Section */}
+            <div className="flex items-center gap-1">
+              <button className="w-9 h-9 rounded-lg flex items-center justify-center hover:bg-slate-100 transition-colors" data-testid="button-back">
+                <ArrowLeft size={20} className="text-slate-600" />
+              </button>
+              <button className="w-9 h-9 rounded-lg flex items-center justify-center hover:bg-slate-100 transition-colors" data-testid="button-history">
+                <RotateCcw size={18} className="text-slate-600" />
+              </button>
             </div>
 
-            <div className="flex items-center gap-2 text-sm text-slate-500">
-              <span className="hover:text-black cursor-pointer hidden sm:inline">Research Q3</span>
-              <ChevronRight size={14} className="text-slate-300 hidden sm:inline" />
-              <span className="font-semibold text-slate-900 flex items-center gap-2">
-                <FileText size={14} className="text-slate-400" />
-                Launch Memo
-              </span>
+            {/* Center Section - Agent Branding */}
+            <div className="flex items-center gap-2">
+              <AgentLogoIcon />
+              <span className="text-base font-semibold text-slate-800">Agent</span>
+            </div>
+
+            {/* Right Section */}
+            <div className="flex items-center gap-1">
+              <button className="w-9 h-9 rounded-lg flex items-center justify-center hover:bg-slate-100 transition-colors" data-testid="button-add-tab">
+                <AddTabIcon />
+              </button>
+              <button className="w-9 h-9 rounded-lg flex items-center justify-center hover:bg-slate-100 transition-colors" data-testid="button-menu">
+                <MoreVertical size={20} className="text-slate-600" />
+              </button>
             </div>
           </header>
+
+          {/* Tab Bar */}
+          <div className="h-10 border-b border-slate-200 flex items-end px-4 bg-white shrink-0">
+            <button 
+              onClick={() => setActiveTab("design")}
+              className={`relative px-3 pb-2 text-sm font-medium transition-colors ${
+                activeTab === "design" ? "text-slate-900" : "text-slate-500 hover:text-slate-700"
+              }`}
+              data-testid="tab-design"
+            >
+              design
+              {activeTab === "design" && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-cyan-400 rounded-full" />
+              )}
+            </button>
+          </div>
 
           {/* Content Area - Scrollable */}
           <div className="flex-1 overflow-auto min-h-0">
@@ -185,81 +202,87 @@ export default function Ide() {
               </div>
             </div>
 
-            {/* Quick Tools Toolbar */}
+            {/* Quick Tools Toolbar - macOS Style */}
             <div className="px-4 pb-4">
-              <div className="flex items-center justify-center gap-1 bg-slate-100 rounded-2xl p-2 shadow-sm">
-                {/* Local Button */}
+              <div className="flex items-center justify-center gap-1 bg-slate-100/80 backdrop-blur-sm rounded-2xl p-1.5 shadow-sm border border-slate-200/50">
+                
+                {/* Local Button - Purple square with black square */}
                 <button 
                   onClick={() => { setActiveToolTab("local"); setShowLayoutPanel(false); }}
-                  className={`relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all ${
+                  className={`relative w-12 h-12 rounded-xl flex items-center justify-center transition-all ${
                     activeToolTab === "local" 
-                      ? "bg-violet-400 shadow-md" 
-                      : "bg-white hover:bg-slate-50"
+                      ? "bg-violet-200 shadow-sm" 
+                      : "hover:bg-white/60"
                   }`}
                   data-testid="button-tool-local"
                 >
-                  <div className={`w-4 h-4 sm:w-5 sm:h-5 rounded ${activeToolTab === "local" ? "bg-slate-900" : "bg-slate-400"}`} />
+                  <div className="w-8 h-8 bg-violet-400 rounded-lg flex items-center justify-center">
+                    <div className="w-4 h-4 bg-slate-900 rounded-sm" />
+                  </div>
                 </button>
 
                 {/* Monitor Button */}
                 <button 
                   onClick={() => { setActiveToolTab("monitor"); setShowLayoutPanel(false); }}
-                  className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all ${
-                    activeToolTab === "monitor" ? "bg-white shadow-md" : "bg-white hover:bg-slate-50"
+                  className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all ${
+                    activeToolTab === "monitor" ? "bg-white shadow-sm" : "hover:bg-white/60"
                   }`}
                   data-testid="button-tool-monitor"
                 >
-                  <Monitor size={20} className="text-slate-500 sm:w-[22px] sm:h-[22px]" />
+                  <MonitorIcon />
                 </button>
 
-                {/* Agents Button - Grid of dots */}
+                {/* Agents Button - 3x3 Grid of purple dots */}
                 <button 
                   onClick={() => { setActiveToolTab("agents"); setShowLayoutPanel(false); }}
-                  className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all ${
-                    activeToolTab === "agents" ? "bg-white shadow-md" : "bg-white hover:bg-slate-50"
+                  className={`relative w-12 h-12 rounded-xl flex items-center justify-center transition-all ${
+                    activeToolTab === "agents" ? "bg-slate-200/80 shadow-sm" : "hover:bg-white/60"
                   }`}
                   data-testid="button-tool-agents"
                 >
                   <AgentsGridIcon />
+                  {activeToolTab === "agents" && (
+                    <div className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-5 h-1 bg-cyan-400 rounded-full" />
+                  )}
                 </button>
 
-                {/* Auth/Antenna Button */}
+                {/* Globe/Antenna Button with cross */}
                 <button 
-                  onClick={() => { setActiveToolTab("auth"); setShowLayoutPanel(false); }}
-                  className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all ${
-                    activeToolTab === "auth" ? "bg-white shadow-md" : "bg-white hover:bg-slate-50"
+                  onClick={() => { setActiveToolTab("globe"); setShowLayoutPanel(false); }}
+                  className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all ${
+                    activeToolTab === "globe" ? "bg-white shadow-sm" : "hover:bg-white/60"
                   }`}
-                  data-testid="button-tool-auth"
+                  data-testid="button-tool-globe"
                 >
-                  <AntennaIcon />
+                  <GlobeAntennaIcon />
                 </button>
 
                 {/* Divider */}
-                <div className="w-px h-6 sm:h-8 bg-slate-300 mx-1" />
+                <div className="w-px h-7 bg-slate-300 mx-1" />
 
-                {/* Terminal Button */}
+                {/* Plus Button */}
                 <button 
-                  onClick={() => { setActiveToolTab("terminal"); setShowLayoutPanel(false); }}
-                  className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all ${
-                    activeToolTab === "terminal" ? "bg-white shadow-md" : "bg-white hover:bg-slate-50"
+                  onClick={() => { setActiveToolTab("plus"); setShowLayoutPanel(false); }}
+                  className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all ${
+                    activeToolTab === "plus" ? "bg-white shadow-sm" : "hover:bg-white/60"
                   }`}
-                  data-testid="button-tool-terminal"
+                  data-testid="button-tool-plus"
                 >
-                  <TerminalIcon />
+                  <Plus size={22} className="text-slate-500" strokeWidth={1.5} />
                 </button>
 
-                {/* Layout Button - Toggles footer panel */}
+                {/* Layout Button - Two rectangles */}
                 <button 
                   onClick={() => { 
                     setActiveToolTab("layout"); 
                     setShowLayoutPanel(!showLayoutPanel); 
                   }}
-                  className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all ${
-                    activeToolTab === "layout" ? "bg-white shadow-md" : "bg-white hover:bg-slate-50"
+                  className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all ${
+                    activeToolTab === "layout" ? "bg-white shadow-sm" : "hover:bg-white/60"
                   }`}
                   data-testid="button-tool-layout"
                 >
-                  <LayoutIcon />
+                  <LayoutPanelIcon />
                 </button>
               </div>
             </div>
@@ -277,7 +300,6 @@ export default function Ide() {
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             className="bg-white border-t border-slate-200 shrink-0"
           >
-            {/* Footer Toolbar */}
             <div className="px-4 py-3 flex items-center gap-2">
               <div className="flex-1 flex items-center gap-2">
                 <button className="flex-1 flex flex-col items-center justify-center py-3 px-2 bg-slate-50 rounded-xl border border-slate-200 hover:bg-slate-100 transition-colors" data-testid="button-secrets">
@@ -302,7 +324,6 @@ export default function Ide() {
               </div>
             </div>
 
-            {/* Search Bar */}
             <div className="px-4 pb-4 flex items-center gap-2">
               <button className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center border border-slate-200" data-testid="button-files">
                 <LayoutGrid size={20} className="text-slate-600" />
@@ -323,11 +344,10 @@ export default function Ide() {
         )}
       </AnimatePresence>
 
-      {/* LEFT SIDEBAR - Overlay on mobile */}
+      {/* LEFT SIDEBAR - Overlay */}
       <AnimatePresence>
         {leftSidebarOpen && (
           <>
-            {/* Backdrop */}
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -336,7 +356,6 @@ export default function Ide() {
               onClick={() => setLeftSidebarOpen(false)}
             />
             
-            {/* Sidebar */}
             <motion.aside 
               initial={{ x: -280 }}
               animate={{ x: 0 }}
@@ -380,10 +399,6 @@ export default function Ide() {
                               <FileText size={14} />
                               Launch Memo.md
                            </Button>
-                           <Button variant="ghost" className="w-full justify-start gap-2 h-8 text-sm font-normal text-slate-600 hover:text-black hover:bg-slate-100 px-2">
-                              <FileText size={14} />
-                              Competitor Analysis.pdf
-                           </Button>
                         </AccordionContent>
                       </AccordionItem>
                     </Accordion>
@@ -392,7 +407,7 @@ export default function Ide() {
               </ScrollArea>
 
               <div className="p-3 border-t border-slate-100 bg-slate-50/50">
-                <div className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-white hover:shadow-sm border border-transparent hover:border-slate-200 cursor-pointer transition-all group">
+                <div className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-white cursor-pointer transition-all group">
                   <Avatar className="w-8 h-8 rounded-md border border-slate-200">
                     <AvatarImage src="https://github.com/shadcn.png" />
                     <AvatarFallback>SC</AvatarFallback>
@@ -412,48 +427,81 @@ export default function Ide() {
   );
 }
 
+// Agent Logo Icon - 3x3 purple dots for navbar
+function AgentLogoIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <circle cx="6" cy="6" r="2.5" fill="#8B5CF6" />
+      <circle cx="12" cy="6" r="2.5" fill="#8B5CF6" />
+      <circle cx="18" cy="6" r="2.5" fill="#8B5CF6" />
+      <circle cx="6" cy="12" r="2.5" fill="#8B5CF6" />
+      <circle cx="12" cy="12" r="2.5" fill="#8B5CF6" />
+      <circle cx="18" cy="12" r="2.5" fill="#8B5CF6" />
+      <circle cx="6" cy="18" r="2.5" fill="#8B5CF6" />
+      <circle cx="12" cy="18" r="2.5" fill="#8B5CF6" />
+      <circle cx="18" cy="18" r="2.5" fill="#8B5CF6" />
+    </svg>
+  );
+}
+
+// 3x3 Grid of purple dots for toolbar
 function AgentsGridIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="sm:w-[22px] sm:h-[22px]">
-      <circle cx="6" cy="6" r="2" fill="#8B5CF6" />
-      <circle cx="12" cy="6" r="2" fill="#8B5CF6" />
-      <circle cx="18" cy="6" r="2" fill="#8B5CF6" />
-      <circle cx="6" cy="12" r="2" fill="#8B5CF6" />
-      <circle cx="12" cy="12" r="2" fill="#8B5CF6" />
-      <circle cx="18" cy="12" r="2" fill="#8B5CF6" />
-      <circle cx="6" cy="18" r="2" fill="#8B5CF6" />
-      <circle cx="12" cy="18" r="2" fill="#8B5CF6" />
-      <circle cx="18" cy="18" r="2" fill="#8B5CF6" />
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <circle cx="6" cy="6" r="2.2" fill="#8B5CF6" />
+      <circle cx="12" cy="6" r="2.2" fill="#8B5CF6" />
+      <circle cx="18" cy="6" r="2.2" fill="#8B5CF6" />
+      <circle cx="6" cy="12" r="2.2" fill="#8B5CF6" />
+      <circle cx="12" cy="12" r="2.2" fill="#8B5CF6" />
+      <circle cx="18" cy="12" r="2.2" fill="#8B5CF6" />
+      <circle cx="6" cy="18" r="2.2" fill="#8B5CF6" />
+      <circle cx="12" cy="18" r="2.2" fill="#8B5CF6" />
+      <circle cx="18" cy="18" r="2.2" fill="#8B5CF6" />
     </svg>
   );
 }
 
-function AntennaIcon() {
+// Monitor Icon - outline style matching screenshot
+function MonitorIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="sm:w-[22px] sm:h-[22px]">
-      <circle cx="12" cy="12" r="2" />
-      <path d="M16.24 7.76a6 6 0 0 1 0 8.49" />
-      <path d="M7.76 16.24a6 6 0 0 1 0-8.49" />
-      <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
-      <path d="M4.93 19.07a10 10 0 0 1 0-14.14" />
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#64748B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="3" width="20" height="14" rx="2" />
+      <line x1="8" y1="21" x2="16" y2="21" />
+      <line x1="12" y1="17" x2="12" y2="21" />
     </svg>
   );
 }
 
-function TerminalIcon() {
+// Globe with antenna/cross icon
+function GlobeAntennaIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="sm:w-[22px] sm:h-[22px]">
-      <polyline points="4 17 10 11 4 5" />
-      <line x1="12" y1="19" x2="20" y2="19" />
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#64748B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <line x1="2" y1="12" x2="22" y2="12" />
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+      <line x1="12" y1="2" x2="12" y2="6" />
+      <circle cx="12" cy="2" r="1" fill="#64748B" stroke="none" />
     </svg>
   );
 }
 
-function LayoutIcon() {
+// Add Tab Icon - square with plus
+function AddTabIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748B" strokeWidth="1.5" className="sm:w-[22px] sm:h-[22px]">
-      <rect x="3" y="5" width="8" height="14" rx="1.5" />
-      <rect x="13" y="5" width="8" height="14" rx="1.5" />
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <line x1="12" y1="8" x2="12" y2="16" />
+      <line x1="8" y1="12" x2="16" y2="12" />
+    </svg>
+  );
+}
+
+// Layout Panel Icon - two rectangles side by side
+function LayoutPanelIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#64748B" strokeWidth="1.5">
+      <rect x="3" y="5" width="7" height="14" rx="1" />
+      <rect x="14" y="5" width="7" height="14" rx="1" />
     </svg>
   );
 }
