@@ -2,16 +2,7 @@ import { Globe, MoreVertical, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-interface AppsPageProps {
-  onSelectApp?: (appId: string) => void;
-}
-
-export default function AppsPage({ onSelectApp }: AppsPageProps) {
-  const handleSelectApp = (appId: string) => {
-    if (onSelectApp) {
-      onSelectApp(appId);
-    }
-  };
+export default function AppsPage() {
 
   return (
     <div className="h-screen w-full bg-white font-sans overflow-hidden flex flex-col">
@@ -53,7 +44,7 @@ export default function AppsPage({ onSelectApp }: AppsPageProps) {
             <h2 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3 px-1">Working...</h2>
             
             {/* Card */}
-            <div className="p-4 rounded-lg border-2 border-slate-300 bg-slate-50 hover:bg-slate-100 transition-colors cursor-pointer" onClick={() => handleSelectApp("current")}>
+            <div className="p-4 rounded-lg border-2 border-slate-300 bg-slate-50 hover:bg-slate-100 transition-colors cursor-pointer">
               {/* Card Image/Preview */}
               <div className="mb-3 rounded-lg bg-gradient-to-br from-purple-100 to-blue-100 aspect-video flex items-center justify-center relative overflow-hidden">
                 <div className="text-center">
@@ -81,7 +72,6 @@ export default function AppsPage({ onSelectApp }: AppsPageProps) {
             {/* NiceScreenshots App */}
             <button 
               className="w-full p-4 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors group text-left"
-              onClick={() => handleSelectApp("nicescreenshots")}
               data-testid="app-nicescreenshots"
             >
               <div className="flex items-start justify-between mb-2">

@@ -102,7 +102,7 @@ export function Navbar() {
           >
             {isMobileMenuOpen ? <X /> : <Menu />}
           </button>
-        </nav>
+        </motion.nav>
       </motion.div>
 
       {/* Mobile Menu Overlay */}
